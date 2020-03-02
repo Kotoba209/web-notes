@@ -1,0 +1,109 @@
+<!-- 修改checkbox的默认样式 -->
+
+<!-- 类名(id) +类名(id) =>
+
+input:checked ~ label ：相邻同胞选择器，选择被选中的input标签后 所有的label标签［input 和 label标签有共同的父元素］
+
+input:checked ＋ label ：相邻同胞选择器，选择被选中的input标签后 第一个label标签［input 和 label标签有共同的父元素］ -->
+
+<!-- 方法一 -->
+
+<!--
+<input type="checkbox" id="test" class="test">同意
+<label for="test"></label> -->
+
+<!-- Css -->
+#test{
+visibility: hidden;
+}
+
+#test +label{
+width: 18px;
+height: 18px;
+background-color: #c07721;
+display: block;
+position: relative;
+top: -18px;
+left: -2px;
+border-radius: 4px;
+cursor: pointer;
+overflow: hidden;
+}
+
+#test:checked +label:before{
+content: "√"; /*这里设置选中之后的显示内容*/
+width: 18px;
+height: 18px;
+display: block;
+color: #ffffff;
+text-align: center;
+font-weight: bolder;
+line-height: 18px;
+}
+
+
+<!-- 方法二 -->
+
+<!--
+<div class="container">One
+  <input type="radio" checked="checked">
+  <span class="checkmark"></span>
+</div> -->
+
+Css
+/* The container */
+.container {
+display: block;
+position: relative;
+padding-left: 35px;
+margin-bottom: 12px;
+cursor: pointer;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+position: absolute;
+height: 0;
+width: 0;
+opacity: 0;
+appearance: none;/*清除默认样式*/
+-webkit-appearance: none;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 25px;
+width: 25px;
+background-color: #eee;
+border-radius: 50%
+}
+
+.container input:checked + .checkmark {
+background-color: #abcdef;
+}
+
+.container input:checked + .checkmark:after {
+content: "";
+position: absolute;
+left: 9px;
+top: 5px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 3px 3px 0;
+-webkit-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+
+
+<!-- 取消背景颜色 -->
+
+<!--
+.类名 {
+  background-color: transparent;
+}
+-->

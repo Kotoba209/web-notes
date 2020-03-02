@@ -1,0 +1,205 @@
+String(字符串)
+
+str.charAt(index)
+<!-- charAt() 方法从一个字符串中返回指定的字符。 -->
+<!-- index:一个介于0 和字符串长度减1之间的整数。 (0~length-1),如果没有提供索引，charAt() 将使用0。 -->
+
+str.substring(indexStart[, indexEnd])
+<!-- 包含给定字符串的指定部分的新字符串 -->
+<!-- indexStart:需要截取的第一个字符的索引，该索引位置的字符作为返回的字符串的首字母。 -->
+<!-- indexEnd:可选。一个 0 到字符串长度之间的整数，以该数字为索引的字符不包含在截取的字符串内。 -->
+<!-- substring 提取从 indexStart 到 indexEnd（不包括）之间的字符。
+注意：
+如果 indexStart 等于 indexEnd，substring 返回一个空字符串。
+如果省略 indexEnd，substring 提取字符一直到字符串末尾。
+如果任一参数小于 0 或为 NaN，则被当作 0。
+如果任一参数大于 stringName.length，则被当作 stringName.length。
+如果 indexStart 大于 indexEnd，则 substring 的执行效果就像两个参数调换了一样。见下面的例子。 -->
+
+判断一个长字符串中是否含有某一元素
+
+<!--
+1、indexOf
+2、search
+-->
+
+
+Array(数组)
+
+<!-- 数组reduce语法-sta -->
+array.reduce(function(total, currentValue, currentIndex, arr) {}, initialValue);
+<!-- total(必须) 第一个值, 有初始值取初始值, 没有则取数组第一个元素 -->
+<!-- currentValue(必须) 当前数组元素 -->
+<!-- currentIndex(可选) 当前元素索引 -->
+<!-- arr(可选) 当前元素所属的数组对象 -->
+<!-- initialValue(可选) 定义初始值 -->
+
+<!-- reduce求和 -->
+var sum = arr.reduce(function(prev, cur) { return prev + cur; }, 0);
+
+<!-- reduce求最大值 -->
+var max = arr.reduce(function(prev, cur) { return Math.max(prev, cur); });
+
+<!-- reduce去重 -->
+var newArr = arr.reduce(function(prev, cur) { prev.indexOf(cur) === -1 && prev.push(cur); return prev; }, []);
+<!-- 数组reduce语法-end -->
+
+<!-- every-sta -->
+arr.every(callback[, thisArg]);
+<!-- every() 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。 -->
+<!--
+callback 用来测试每个元素的函数，它可以接收三个参数：
+      element 用于测试的当前值。
+      index可选 用于测试的当前值的索引。
+      array可选 调用 every 的当前数组。
+thisArg 执行 callback 时使用的 this 值。 
+-->
+
+<!--
+function isBigEnough(element, index, array) {
+return element >= 10;
+}
+[12, 5, 8, 130, 44].every(isBigEnough); // false
+[12, 54, 18, 130, 44].every(isBigEnough); // true
+-->
+<!-- every-end -->
+
+
+<!-- forEach-sta -->
+
+arr.forEach();
+<!-- forEach() 方法对数组的每个元素执行一次提供的函数。 -->
+<!-- arr.forEach(callback(currentValue [, index [, array]])[, thisArg]); -->
+<!--
+callback
+为数组中每个元素执行的函数，该函数接收三个参数：
+currentValue
+数组中正在处理的当前元素。
+index 可选
+数组中正在处理的当前元素的索引。
+array 可选
+forEach() 方法正在操作的数组。
+thisArg 可选
+可选参数。当执行回调函数 callback 时，用作 this 的值。
+-->
+<!--
+const array1 = ['a', 'b', 'c'];
+array1.forEach(element => console.log(element));
+-->
+
+<!-- forEach-end -->
+
+arr.splice,findIndex
+<!-- 数组指定去除某一项 -->
+<!--
+let array = [1, 2, 3, 4];
+删除2,array.splice(array.findIndex(item => item === 2), 1);
+-->
+
+向localStorage上的数组push数据 || concat数组
+
+<!--
+localStorage.setItem("arr", JSON.stringify(arr))
+var arr = JSON.parse(localStorage.getItem("arr"))
+arr.push(something) || arr.concat(anotherArr) || const newArray = new Set([...arr, ...shopcar]);
+localStorage.setItem("arr", JSON.stringify(arr))
+-->
+
+
+
+Object(对象)
+
+
+<!-- 判断一个数组是否为空-sta -->
+<!-- Json.stringify() -->
+JSON.stringify(obj) === '{}';
+<!--判断一个数组是否为空 - end -->
+
+Object.entries()
+<!-- 返回一个给定对象自身可枚举属性的键值对数组，其排列与使用 for...in 循环遍历该对象时返回的顺序一致（区别在于 for-in 循环还会枚举原型链中的属性）。 -->
+<!-- for (let [key, value] of Object.entries(object1)) {
+console.log(`${key}: ${value}`);
+} -->
+
+decodeURIComponent()
+<!-- decodeURIComponent() 方法用于解码由 encodeURIComponent 方法或者其它类似方法编码的部分统一资源标识符（URI）。 -->
+<!-- 返回一个解码后的统一资源标识符（URI）字符串，处理前的URI经过了给定格式的编码。 -->
+<!-- encodedURI:编码后的部分 URI -->
+
+encodeURIComponent()
+<!-- 是对统一资源标识符（URI）的组成部分进行编码的方法
+它使用一到四个转义序列来表示字符串中的每个字符的UTF-8编码
+（只有由两个Unicode代理区字符组成的字符才用四个转义字符编码）。 -->
+
+判断两个对象是否相同
+
+<!--
+1、先判断俩者是不是对象
+2、是对象后俩者长度是否一致
+3、判断俩个对象的所有key值是否相等相同
+4、判断俩个对象的相应的key对应的值是否相同
+5、来一个递归判断里面的对象循环1-4步骤
+
+function diff(obj1,obj2){
+var o1 = obj1 instanceof Object;
+var o2 = obj2 instanceof Object;
+// 判断是不是对象
+if (!o1 || !o2) {
+return obj1 === obj2;
+}
+if (Object.keys(obj1).length !== Object.keys(obj2).length) {
+return false;
+}
+
+for (var o in obj1) {
+var t1 = obj1[o] instanceof Object;
+var t2 = obj2[o] instanceof Object;
+if (t1 && t2) {
+return diff(obj1[o], obj2[o]);
+} else if (obj1[o] !== obj2[o]) {
+return false;
+}
+}
+return true;
+} -->
+
+
+一个对象数组内删除全部对象的同一属性
+
+  <!--
+  var myprop = [
+  {prop1：'A'，prop2：1”，prop3：descr1”}，
+  {prop1：'B '，prop2：2”，prop3：descr2”}，
+  {prop1：'C'，prop2：3”，prop3：descr3”}，
+  ];
+
+  myprop = myprop.filter（function（props）{
+  delete props.prop2;
+  return true;
+  }）;
+  console.log（myprop）;
+-->
+
+
+Other(其他)
+
+
+将小写数字转换为大写-sta
+
+<!-- function capital(n) { -->
+<!-- if (/^(0|[1-9]d*)(.d+)?$/.test(n)) 
+      { return "数据非法"; }  --> // 正则判断要转换的是否为数字
+<!-- var unit = "千百拾亿千百拾万千百拾元角分",
+str = "";
+n += "00";
+n = n.toString();
+if (n.indexOf('.') > 0) {
+var p = n.indexOf(".");
+}
+if (p >= 0) {
+n = n.substring(0, p) + n.substr(p + 1, 2);
+unit = unit.substr(unit.length - n.length);
+}
+for (var i = 0; i< n.length; i++) { str +="零壹贰叁肆伍陆柒捌玖" .charAt(n.charAt(i)) + unit.charAt(i); } return
+  str.replace(/零(千|百|拾|角)/g, "零" ).replace(/(零)+/g, "零" ).replace(/零(万|亿|元)/g, "$1" ) .replace(/(亿)万|壹(拾)/g, "$1$2"
+  ).replace(/^元零?|零分/g, "" ) .replace(/元$/g, "元整" ); } -->

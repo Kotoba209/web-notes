@@ -1,0 +1,96 @@
+API
+
+
+path.join()
+<!-- 使用平台特定的分隔符作为定界符将所有给定的 path 片段连接在一起，然后规范化生成的路径。
+零长度的 path 片段会被忽略。 如果连接的路径字符串是零长度的字符串，则返回 '.'，表示当前工作目录。 -->
+<!-- path.join('/foo', 'bar', 'baz/asdf', 'quux', '..');
+输出结果:'/foo/bar/baz/asdf' -->
+
+path.extname()
+<!-- 返回 path 的扩展名，从最后一次出现 .（句点）字符到 path 最后一部分的字符串结束。 如果在 path 的最后一部分中没有 . 
+，或者如果 path 的基本名称（参阅 path.basename()）除了第一个字符以外没有.，则返回空字符串。 -->
+<!-- path.extname('index.html'); -->
+<!-- 输出结果:'.html' -->
+
+fs.existsSync(path)
+<!-- 如果路径存在，则返回 true，否则返回 false。 -->
+
+
+
+koa中间件的使用
+
+
+koa-static
+<!-- // 静态资源目录对于相对入口文件index.js的路径
+const staticPath = './static'
+app.use(static(
+path.join( __dirname, staticPath)
+)) -->
+
+koa-router
+<!--
+1. 路由导航
+2. get请求获取参数 （ctx.query）
+3. 动态路由及其获取参数（/product/:id ctx.params.id
+-->
+<!-- var router = require('koa-router')(); //引入是实例化路由
+router.get('/',async (ctx)=>{
+ctx.body="首页";
+})
+
+app.use(router.routes()); //启动路由
+app.use(router.allowedMethods()); -->
+
+<!-- router.allowedMethods()作用： 这是官方文档的推荐用法,我们可以
+看到 router.allowedMethods()用在了路由匹配 router.routes()之后,所以在当所有
+路由中间件最后调用.此时根据 ctx.status 设置 response 响应头 -->
+
+koa-bodyparser
+<!-- app.use(bodyParser())
+let postData = ctx.request.body //将post传的参数添加到postData -->
+
+koa-views
+<!--加载模板引擎
+app.use(views(path.join(__dirname, './view'), {
+extension: 'ejs'
+}))
+
+app.use( async ( ctx ) => {
+let title = 'hello koa2'
+await ctx.render('index', {
+title,
+})
+}) -->
+
+busboy
+<!--
+busboy 模块是用来解析POST请求，node原生req中的文件流。
+const Busboy = require('busboy')
+// req 为node原生请求
+const busboy = new Busboy({ headers: req.headers }) -->
+<!-- 更多信息：https://github.com/ChenShenhai/koa2-note/blob/master/note/upload/busboy.md -->
+
+
+
+other
+
+
+koa2使用cookie
+<!-- 
+ctx.cookies.get(name, [options]) 读取上下文请求中的cookie
+ctx.cookies.set(name, value, [options]) 在上下文中写入cookie
+-->
+<!--
+  ctx.cookies.set(
+'cid',
+'hello world',
+{
+domain: 'localhost', // 写cookie所在的域名
+path: '/index', // 写cookie所在的路径
+maxAge: 10 * 60 * 1000, // cookie有效时长
+expires: new Date('2017-02-15'), // cookie失效时间
+httpOnly: false, // 是否只用于http请求中获取
+overwrite: false // 是否允许重写
+}
+) -->
